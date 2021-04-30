@@ -2,7 +2,7 @@ package inheritance2;
 
 public class DatabaseLogger extends Logger {
 	public void log() {
-		System.out.println("Veritabanýna yollandý.");
+		System.out.println("Veritabanina yollandi.");
 	}
 
 }

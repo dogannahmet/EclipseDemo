@@ -2,7 +2,7 @@ package inheritance2;
 
 public class EmailLogger extends Logger {
 	public void log() {
-		System.out.println("Email yollandý.");
+		System.out.println("Email yollandi.");
 		
 	}
 }
