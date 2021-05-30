@@ -3,33 +3,34 @@ package com.javacamp.hrms.entities.concretes;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name="users")
-@Data
 public class User {
-	
+		
 	@Id
-	@GeneratedValue
-	@Column(name="id")
-	private int id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="user_id")
+	private int userId;
 	
-	@Column(name="email")
-	private String email;
+	@Column(name="user_email")
+	private String userEmail;
 	
-	@Column(name="password")
-	private String password;
+	@Column(name="user_password")
+	private String userPassword;
 	
-	public User() {}
+	/*
+	 * @OneToOne(mappedBy = "user") private Candidate candidate;
+	 */
 	
-	public User(int id, String email, String password) {
-		super();
-		this.id = id;
-		this.email = email;
-		this.password = password;
-	}
 }

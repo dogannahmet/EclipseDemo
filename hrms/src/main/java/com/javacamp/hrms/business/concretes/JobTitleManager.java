@@ -31,6 +31,7 @@ public class JobTitleManager implements JobTitleService {
 	public DataResult<List<JobTitle>> getAll() {
 		return new SuccessDataResult<List<JobTitle>>
 		(this.jobTitleDao.findAll(),"Data listelendi.");
+	
 	}
 
 
