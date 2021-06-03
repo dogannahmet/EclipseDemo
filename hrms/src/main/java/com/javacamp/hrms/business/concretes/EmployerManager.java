@@ -19,8 +19,6 @@ import com.javacamp.hrms.entities.concretes.VerificationCode;
 
 @Service
 public class EmployerManager implements EmployerService {
-
-	
 	
 	private EmployerDao employerDao;
 	private VerificationCodeService verificationCodeService;
@@ -49,7 +47,7 @@ public class EmployerManager implements EmployerService {
 
 	@Override
 	public Result add(Employer employer) {
-		if (!checkIfEmailExists(employer.getEmail())) {
+		if (findByEmail(employer.getEmail()).getData() != null) {
 			return new ErrorResult(employer.getEmail() + " sistemde kayıtlı.");
 		}
 		
@@ -64,15 +62,7 @@ public class EmployerManager implements EmployerService {
 		return new SuccessResult("Kayıt işlemi başarılı.");
 	}
 	
-	
-
-	private boolean checkIfEmailExists(String email) {
-		if (findByEmail(email).getData() == null) {
-			return true;
-		}
-		return false;
-	}
-	
+		
 	private boolean checkIfEqualEmailAndDomain(String email, String website) {
 		String[] emailAddress = email.split("@");
 		String webAddress = website.substring(4,website.length());

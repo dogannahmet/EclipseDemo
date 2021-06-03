@@ -13,6 +13,5 @@ public interface CandidateService {
 	DataResult<Candidate> findByIdentityNumber(String identityNumber);
 	
 	Result add(Candidate candidate);
-	Result update(Candidate candidate);
-	Result delete(int id);
+	
 }

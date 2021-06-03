@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.javacamp.hrms.business.abstracts.CandidateService;
-import com.javacamp.hrms.business.abstracts.UserService;
 import com.javacamp.hrms.business.abstracts.VerificationCodeService;
 import com.javacamp.hrms.core.utilities.helpers.CodeGenerator;
 import com.javacamp.hrms.core.utilities.helpers.ValidationService;
@@ -22,24 +21,21 @@ import com.javacamp.hrms.entities.concretes.VerificationCode;
 
 @Service 
 public class CandidateManager implements CandidateService {
-	
-	
+		
 	
 	private CandidateDao candidateDao;
-	private UserService userService;
 	private VerificationCodeService verificationCodeService;
 	private ValidationService validationService;
 	private CodeGenerator codeGenerator;
 		
 	
 	@Autowired
-	public CandidateManager(CandidateDao candidateDao, UserService userService,
+	public CandidateManager(CandidateDao candidateDao,
 			VerificationCodeService verificationCodeService, ValidationService validationService,
 			CodeGenerator codeGenerator) {
 		
 		super();
 		this.candidateDao = candidateDao;
-		this.userService = userService;
 		this.verificationCodeService = verificationCodeService;
 		this.validationService = validationService;
 		this.codeGenerator = codeGenerator;
@@ -76,7 +72,7 @@ public class CandidateManager implements CandidateService {
 
 			return new ErrorResult(candidate.getIdentityNumber() + " sistemde kayıtlı!..");
 		}
-		if (!checkIfEmailExists(candidate.getEmail())) {
+		if (findByEmail(candidate.getEmail()).getData() != null) {
 			return new ErrorResult(candidate.getEmail() + " sistemde kayıtlı!..");
 		}
 		
@@ -86,19 +82,6 @@ public class CandidateManager implements CandidateService {
 		verificationCodeRecord(candidateCode, candidate.getId(), candidate.getEmail());
 		return new SuccessResult("Kayıt işlemi başarılı.");
 	}
-
-	@Override
-	public Result update(Candidate candidate) {
-		this.candidateDao.save(candidate);
-		return new SuccessResult("Bilgiler güncellendi.");
-	}
-
-	@Override
-	public Result delete(int id) {
-		this.candidateDao.deleteById(id);
-		return new SuccessResult("Kayıt silindi.");
-	}	
-	
 	
 	private boolean checkIfMernis(long identityNumber, String firstName, String lastName, String birthYear) {
 
@@ -108,16 +91,7 @@ public class CandidateManager implements CandidateService {
 		return false;
 	}
 	
-	private boolean checkIfEmailExists(String email) {
-
-		if (this.userService.findByEmail(email).getData() == null) {
-
-			return true;
-		}
-
-		return false;
-	}
-
+	
 	private void verificationCodeRecord(String code, int id, String email) {
 		
 		VerificationCode verificationCode = new VerificationCode(id, code, false);
