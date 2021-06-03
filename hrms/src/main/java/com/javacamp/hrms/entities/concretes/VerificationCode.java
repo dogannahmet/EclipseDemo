@@ -10,7 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
+
 @NoArgsConstructor
 @Entity
 @Table(name="verification_codes")
@@ -24,6 +24,13 @@ public class VerificationCode {
 	private String code;
 	
 	@Column(name="is_confirmed")
-	private boolean isConfirmed;	
+	private boolean isConfirmed;
+
+	
+	public VerificationCode(int userId, String code) {
+		super();
+		this.userId = userId;
+		this.code = code;
+	}	
 
 }

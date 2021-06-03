@@ -94,7 +94,7 @@ public class CandidateManager implements CandidateService {
 	
 	private void verificationCodeRecord(String code, int id, String email) {
 		
-		VerificationCode verificationCode = new VerificationCode(id, code, false);
+		VerificationCode verificationCode = new VerificationCode(id, code);
 		this.verificationCodeService.add(verificationCode);
 		System.out.println(email + " adresine doğrulama kodu gönderildi" );
 	
