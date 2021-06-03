@@ -1,14 +1,17 @@
 package com.javacamp.hrms.core.utilities.helpers;
 
-import java.util.Random;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
+
 @Service
 public class CodeGenerator {
-	public static void CodeGenerate() {
-		Random random = new Random();
-		int code = random.nextInt(100)+10000;
-		System.out.println(code);
+	
+	public String CodeGenerate() {
+		
+		UUID code=UUID.randomUUID();
+		String verifyCode = code.toString(); 
+	    return verifyCode;
 	}
 }

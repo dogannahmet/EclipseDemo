@@ -24,7 +24,7 @@ import kodlamaio.northwind.core.utilities.results.ErrorDataResult;
 
 
 @RestController
-@RequestMapping(value="/api/users")
+@RequestMapping("/api/users")
 public class UsersController {
 	
 	private UserService userService;
@@ -35,7 +35,7 @@ public class UsersController {
 		this.userService = userService;
 	}
 	
-	@PostMapping(value="/add")
+	@PostMapping("/add")
 	public ResponseEntity<?> add(@Valid @RequestBody User user) {
 		
 		return ResponseEntity.ok(this.userService.add(user)) ;
@@ -46,6 +46,7 @@ public class UsersController {
 	public ErrorDataResult<Object> handleValidationException(MethodArgumentNotValidException exceptions){
 		
 		Map<String, String> validationErrors = new HashMap<String, String>();
+		
 		for(FieldError fieldError : exceptions.getBindingResult().getFieldErrors()) {
 			validationErrors.put(fieldError.getField(), fieldError.getDefaultMessage());
 		}

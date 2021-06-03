@@ -12,16 +12,20 @@ public class MernisManagerAdapter {
 	public boolean checkIfRealPerson(Candidate candidate){
 		
 		KPSPublicSoapProxy client = new KPSPublicSoapProxy();
-		boolean result=true;
+		boolean result;
+		
 		try {
 			result=client.TCKimlikNoDogrula(
-						Long.valueOf(candidate.getIdentityNumber()), 
-						candidate.getFirstName(), 
-						candidate.getLastName(), 
+						Long.parseLong(candidate.getIdentityNumber()), 
+						candidate.getFirstName().toUpperCase(), 
+						candidate.getLastName().toUpperCase(), 
 						Integer.parseInt(candidate.getBirthYear()));
+				
+		return result;
 		} catch (Exception e) {
 			e.printStackTrace();
-		} 
-		return result;
+			return false;
+		
+		}
 	}
 }

@@ -1,36 +1,56 @@
 package com.javacamp.hrms.entities.concretes;
 
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name="users")
-public class User {
+public class User{
 		
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="user_id")
-	private int userId;
+	@Column(name= "id")
+	private int id;
 	
-	@Column(name="user_email")
-	private String userEmail;
+	@Email
+	@NotBlank
+	@Column(name="email")
+	private String email;
 	
-	@Column(name="user_password")
-	private String userPassword;
+	@NotBlank
+	@Column(name="password")
+	private String password;
+
+	@JsonIgnore
+	@Column(name= "created_at")
+	private LocalDate createdAt = LocalDate.now();
 	
-	/*
-	 * @OneToOne(mappedBy = "user") private Candidate candidate;
-	 */
+	@JsonIgnore
+	@Column(name= "is_active")
+	private boolean isActive = true;
+	
+	@JsonIgnore
+	@Column(name= "is_deleted")
+	private boolean isDeleted = false;
 	
 }

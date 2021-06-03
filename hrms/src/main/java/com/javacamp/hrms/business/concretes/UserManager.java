@@ -16,7 +16,7 @@ import com.javacamp.hrms.entities.concretes.User;
 @Service
 public class UserManager implements UserService{
 
-	UserDao userDao;
+	private UserDao userDao;
 	
 	@Autowired
 	public UserManager(UserDao userDao) {
@@ -31,9 +31,15 @@ public class UserManager implements UserService{
 	}
 
 	@Override
+	public DataResult<User> findByEmail(String email) {
+		return new SuccessDataResult<User>
+		(this.userDao.findByEmail(email));
+	}
+
+	@Override
 	public Result add(User user) {
 		this.userDao.save(user);
-		return new SuccessResult("Kayıt eklendi");
+		return new SuccessResult("Kullanıcı kaydı başarıyla oluşturuldu.");
 	}
 
 }

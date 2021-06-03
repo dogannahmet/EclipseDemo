@@ -8,6 +8,9 @@ import com.javacamp.hrms.entities.concretes.User;
 
 public interface UserService {
 	DataResult<List<User>> getAll();
-	
+	DataResult<User> findByEmail(String email);
+			
 	Result add(User user);
+	
+		
 }
