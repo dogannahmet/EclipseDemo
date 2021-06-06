@@ -1,6 +1,5 @@
 package com.javacamp.hrms.entities.concretes;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -10,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -19,30 +17,21 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name="job_positions")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class JobPosition {
-	
+@Table(name="cities")
+public class City {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
 	private int id;
-	
-	@NotBlank
+		
 	@Column(name="name")
 	private String name;
 	
 	@JsonIgnore
-	@Column(name="created_at")
-	private LocalDate createdAt = LocalDate.now();
-		
-	@Column(name="is_active")
-	private boolean isActive = true;
-	
-	@JsonIgnore
-	@OneToMany(mappedBy = "jobPosition")
+	@OneToMany(mappedBy = "city")
 	private List<JobAdvert> jobAdvert;
-	
 }

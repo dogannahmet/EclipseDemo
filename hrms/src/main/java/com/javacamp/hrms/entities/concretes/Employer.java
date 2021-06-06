@@ -1,7 +1,10 @@
 package com.javacamp.hrms.entities.concretes;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
@@ -37,4 +40,9 @@ public class Employer extends User{
 	@JsonIgnore
 	@Column(name="is_verified")
 	private boolean isVerified = false;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "employer")
+	private List<JobAdvert> jobAdvert;
+	
 }
